@@ -1,0 +1,16 @@
+ul {
+    list-style-type:none;
+}
+
+.dropdown-toggle::after {    
+    content: none;
+}
+
+/* .dropdown-menu {
+    margin:0px;
+    padding: 0px;
+}
+
+a.dropdown-item {
+    padding: auto 0;
+} */
