@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 
 import Store from "./components/store/store";
 
-import Hoc from "./components/hoc/hoc";
+import Validation from "./components/hoc/hocValidation";
 
 import Navbar from './components/Navigation/NavBar/NavBar';
 
@@ -25,7 +25,7 @@ function App() {
       <Provider store={Store}>
         <Router>
           <Route render={props => <Navbar {...props}/>}/>
-          <Route render={props => <Hoc {...props}/>}/>
+          <Route render={props => <Validation {...props}/>}/>
           <Switch>
             <Route exact path="/" render={props => <Login {...props} />}/>
             <Route path="/signup" render={props => <Signup {...props} />}/>

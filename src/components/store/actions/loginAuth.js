@@ -42,7 +42,7 @@ export const logIn = userLoginInfo => {
         let userMatch = userToken && userToken.find( USER => (USER.email === userLoginInfo.user.email && USER.password === userLoginInfo.user.password));
 
         if (userMatch) {
-            userLoginInfo.history.push("/resorce"); //direct user to resource page upon logging in successfully
+            userLoginInfo.history.push("/resource"); //direct user to resource page upon logging in successfully
             localStorage.setItem("LOGINtoken", true); 
             logInSuccess(userLoginInfo.user);
         } else {
