@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -17,6 +17,12 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+
+
+
+
+
+
 
 
 const useStyles1 = makeStyles(theme => ({
@@ -49,12 +55,12 @@ function TablePaginationActions(props) {
     };
 
 
-    const useStyles2 = makeStyles({
-        table: {
-            minWidth: 500,
-            maxwidth: 800
-        },
-    });
+    // const useStyles2 = makeStyles({
+    //     table: {
+    //         minWidth: 500,
+    //         maxwidth: 800
+    //     },
+    // });
 
 
     return (
@@ -99,9 +105,8 @@ const useStyles2 = makeStyles({
         minWidth: 500,
     },
 });
-export default function DataTableY(props) {
-
-
+export default function DataTable(props) {
+    console.log(props);
     let rows = props.tableData
     //get table heads./
     let tableHeads = [];
@@ -121,6 +126,9 @@ export default function DataTableY(props) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    const [tableData,setTableData] = useState("");
+
+
 
     return (
         <TableContainer component={Paper}>

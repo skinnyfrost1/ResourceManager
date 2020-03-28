@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
-import Lbwnb from './Lbwnb';
-import DataTable from './CommonComponent/DataTable/DataTable';
-import { TablePagination } from '@trendmicro/react-paginations';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import DataTable from './CommonComponent/DataTable/DataTable';
+// import { TablePagination } from '@trendmicro/react-paginations';
 // import DataTable from './CommonComponent/DataTable/DataTable';
 // import TableRow from '@material-ui/core/TableRow';
 
-library.add(faAlignLeft, faCoffee);
+import {faUserCircle,	faQuestionCircle, faSearch, faPlus, 
+  faCheckCircle, faTimesCircle, faList, faShare, faTrashAlt, 
+  faSquare, faCheckSquare, faFileCsv, faAlignLeft, faColumns} from '@fortawesome/free-solid-svg-icons';
+
+import ResourcePage from './ResourcePage/ResourcePage'
+
+
+library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
+faCheckCircle, faTimesCircle, faList, faShare, faTrashAlt,
+faSquare, faCheckSquare, faFileCsv, faAlignLeft, faColumns);
+
+
 class App extends Component {
 
   state = {
     tableData: [],
     showposts: false,
     beforeFetching: true
-  }
-
+    }
   async componentWillMount() {
     const url = "https://jsonplaceholder.typicode.com/posts";
     // const url = "https://jsonplaceholder.typicode.com/albums";
@@ -33,18 +42,9 @@ class App extends Component {
     console.log(this.state);
     return (
       <div className="app">
-        <div>
-          Favorite beverage: const element = <FontAwesomeIcon icon={faCoffee} color="red" />
-          Favorite beverage: const element = <FontAwesomeIcon icon={faAlignLeft} color="yellow" />
-          <Lbwnb />
-        </div>
-        <br/>
-        {/* <DataTable tableData={this.state.tableData} key="dataTable"/> */}
-        <DataTable tableData={this.state.tableData} key="dataTable"/>
 
-
-        <div></div>
-
+            <ResourcePage tableData={this.state.tableData}/>
+            
       </div>
     );
 
