@@ -1,66 +1,43 @@
-import React ,{Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import './App.css';
 
+import { Router, Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
 
-import LogIn from './Login/Login';
-import SignUp from './Login/Signup/Signup';
-import Resource from './Resource/Resource';
-import Project from './Project/Project';
-import Formula from './Formula/Formula';
-import Template from './Template/Template';
-import Layout from './hoc/Layout/Layout';
-import * as actions from './store/actions/index';
+import Store from "./components/store/store";
 
+import Hoc from "./components/hoc/hoc";
 
+import Navbar from './components/Navigation/NavBar/NavBar';
 
+import Login from './components/UserForms/Login/Login';
+import Signup from './components/UserForms/Signup/Signup';
 
-class App extends Component {
-  componentDidMount () {
-    this.props.onTryAutoSignup();
-  }
+import Resource from './components/Resource/Resource';
+import Project from './components/Project/Project';
+import Formula from './components/Formula/Formula';
+import Template from './components/Template/Template';
 
-  render(){
-
-    let routes = (
-      <Switch>
-        <Route path="/login" component={LogIn} />
-        <Route path="/signup" component={SignUp} />
-        <Redirect to="/login" />
-      </Switch>
-    );
-
-    if ( this.props.isAuthenticated ) {
-      routes = (
-        <Switch>
-          <Route path="/resource" component={Resource} />
-          <Route path="/project" component={Project} />
-          <Route path="/formula" component={Formula} />
-          <Route path="/template" component={Template} />
-          <Redirect to="/" />
-        </Switch>
-      );
-    }
-    return (
-      <div>
-        <Layout>{routes}</Layout>
-      </div>
-    );
-
-  }
+function App() {
+  return (
+    <div className="App">
+      <Provider store={Store}>
+        <Router>
+          <Route render={props => <Navbar {...props}/>}/>
+          <Route render={props => <Hoc {...props}/>}/>
+          <Switch>
+            <Route exact path="/" render={props => <Login {...props} />}/>
+            <Route path="/signup" render={props => <Signup {...props} />}/>
+            <Route path="/resource" render={props => <Resource {...props} />}/>
+            <Route path="/project" render={props => <Project {...props} />}/>
+            <Route path="/formula" render={props => <Formula {...props} />}/>
+            <Route path="/template" render={props => <Template {...props} />}/>
+          </Switch>
+        </Router>
+      </Provider>
+    </div>
+  );
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.auth.token !== null
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onTryAutoSignup: () => dispatch( actions.authCheckState() )
-  };
-};
-
-export default withRouter( connect( mapStateToProps, mapDispatchToProps )( App ) );
+export default App;
