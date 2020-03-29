@@ -1,6 +1,6 @@
 import React from "react";
 
-function hoc (WrappedComponent) {
+function HOC (WrappedComponent) {
     class ValidatedComponent extends React.Component {
         state = {
             userInfo: {
@@ -8,26 +8,26 @@ function hoc (WrappedComponent) {
                 email:"",
                 password: "",
                 confirmPassword: "",
-                show: false,
-                validityErrors: {
+                errors: {
                     name: "",
                     email: "",
                     password: "",
                     confirmPassword: "",
                 },
+                show: false,
             }
         };
         handleChange = e => {
             const { userInfo } = this.state;
-            const { input, value } = e.target;
+            const { inputType, value } = e.target;
 
-            let errors = this.state.userInfo.validityErrors;
+            let errors = this.state.userInfo.errors;
 
             const lettersRegEx = /^[A-Za-z]+$/;
             const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             const pwrdRegEx = /^(?=.*[A-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])\S{6,12}$/;
 
-            switch (input) {
+            switch (inputType) {
                 case "name":
                     errors.name = lettersRegEx.test(value) ? "" : "Please enter valid name";
                     break;
@@ -43,17 +43,17 @@ function hoc (WrappedComponent) {
                 default:
                     break;
             }
-            this.setState({ userInfo: {...userInfo, [input]: value, errors} });
+            this.setState({ userInfo: {...userInfo, [inputType]: value, errors} });
         };
         render(){
             const {name, email, password, confirmPassword} = this.state.userInfo;
-            const signInEnabled = name.length > 0 && email.length > 0 && password.length > 0 && confirmPassword.length > 0;
+            const signUpEnabled = name.length > 0 && email.length > 0 && password.length > 0 && confirmPassword.length > 0;
             const logInEnabled = email.length > 0 && password.length > 0;
 
             return (
-                <WrappedComponent user = {this.state.userInfo} handleChange = {this.handleChange} signInEnabled = {signInEnabled} logInEnabled = {logInEnabled} {...this.props} />
+                <WrappedComponent user = {this.state.userInfo} handleChange = {this.handleChange} signUpEnabled = {signUpEnabled} logInEnabled = {logInEnabled} {...this.props} />
             );
         }
     }
     return ValidatedComponent;
-} export default hoc;
+} export default HOC;

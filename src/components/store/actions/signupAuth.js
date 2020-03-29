@@ -35,10 +35,10 @@ export const signUp = signUpData => {
             email: signUpData.user.email,
             password: signUpData.user.password,
             confirmPassword: signUpData.user.confirmPassword
-        }
+        };
 
         let userArray = JSON.parse(localStorage.getItem("token")); // []
-        const matchingError = user.find(
+        const matchingError = userArray.find(
             user => user.email === signUpInfo
         );
         if (matchingError) {

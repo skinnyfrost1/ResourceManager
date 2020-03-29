@@ -2,12 +2,12 @@ import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
-import { Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import Store from "./components/store/store";
 
-import Validation from "./components/hoc/hocValidation";
+import HOC from "./components/hoc/hocValidation";
 
 import Navbar from './components/Navigation/NavBar/NavBar';
 
@@ -25,7 +25,7 @@ function App() {
       <Provider store={Store}>
         <Router>
           <Route render={props => <Navbar {...props}/>}/>
-          <Route render={props => <Validation {...props}/>}/>
+          <Route component={props => <HOC {...props}/>}/>
           <Switch>
             <Route exact path="/" render={props => <Login {...props} />}/>
             <Route path="/signup" render={props => <Signup {...props} />}/>
