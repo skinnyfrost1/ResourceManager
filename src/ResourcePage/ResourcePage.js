@@ -11,9 +11,15 @@ export default function ResourcePage(props) {
 
     //handle popup
     const [show, setShow] = useState(false);
+    const [check, setCheck] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleCheckClose = () => setCheck(false);
+    const handleCheck = () => {setShow(false); setCheck(true)}
+    // const handleCheck = () => {console.log('nothing')}
+
     const handleImport = () => setShow(false);  //handle importing
 
     const addRow =()=>{
@@ -31,9 +37,7 @@ export default function ResourcePage(props) {
         //search bar + user information
         <div>
             <Navbar bg="light" expand='true' className='ml-auto'>
-
                 <Nav.Item >
-                    {/* e16e37 */}
                     <Form inline>
                         <FormControl type="text" placeholder="Keyword" className="mr-sm-2" />
                         <Button id='search'><FontAwesomeIcon icon="search" onClick={console.log('this is search')} /></Button>
@@ -59,7 +63,7 @@ export default function ResourcePage(props) {
 
             </Navbar>
             {/* csv pop up */}
-            <Modal show={show} onHide={handleClose} animation={false}>
+            <Modal show={show} onHide={handleClose } animation={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Import file</Modal.Title>
                 </Modal.Header>
@@ -71,10 +75,29 @@ export default function ResourcePage(props) {
                 </Modal.Body>
                 
                 <Modal.Footer>
-                    <Button  onClick={handleImport}>
+                    <Button onClick={handleCheck}>
                         Import
                     </Button>
                     <Button onClick={handleClose}>
+                        Cancel 
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* csv double check */}
+            <Modal show={check} onHide={handleCheckClose} animation={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Modify Data</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Do you want to override current data?
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button onClick={handleCheckClose}>
+                        Yes
+                    </Button>
+                    <Button onClick={handleCheckClose}>
                         Cancel
                     </Button>
                 </Modal.Footer>
