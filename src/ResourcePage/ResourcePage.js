@@ -23,7 +23,7 @@ export default function ResourcePage(props) {
             row[k] = "empty";
         }
         tableData.push(row);
-        setState({tableData: tableData})
+        props.updateTable(tableData);
     }
 
 

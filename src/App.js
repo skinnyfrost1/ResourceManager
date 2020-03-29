@@ -27,6 +27,13 @@ class App extends Component {
     showposts: false,
     beforeFetching: true
     }
+
+
+
+  updateTable = (tableData)=>{
+    console.log("yes");
+    this.setState({tableData:tableData});
+  }
   async componentWillMount() {
     const url = "https://jsonplaceholder.typicode.com/posts";
     // const url = "https://jsonplaceholder.typicode.com/albums";
@@ -47,7 +54,7 @@ class App extends Component {
     return (
       <div className="app">
 
-            <ResourcePage tableData={this.state.tableData}/>
+            <ResourcePage tableData={this.state.tableData} updateTable={this.updateTable}/>
             
       </div>
     );
