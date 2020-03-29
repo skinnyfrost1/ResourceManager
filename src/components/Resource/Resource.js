@@ -1,9 +1,9 @@
 import React,{Component, useState, useEffect,setState} from "react";
-import "./ResourcePage.css"
+import "./Resource.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, Form, FormControl, Button, Nav, MenuItem, Dropdown, DropdownButton, Modal} from 'react-bootstrap'
 import DropdownItem from "react-bootstrap/DropdownItem";
-import DataTable from "../CommonComponent/DataTable/DataTable";
+import DataTable from "../DataTable/DataTable";
 
 
 export default function ResourcePage(props) {
