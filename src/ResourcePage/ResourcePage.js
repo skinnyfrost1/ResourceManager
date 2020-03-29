@@ -1,4 +1,4 @@
-import React,{Component, useState, useEffect} from "react";
+import React,{Component, useState, useEffect,setState} from "react";
 import "./ResourcePage.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, Form, FormControl, Button, Nav, MenuItem, Dropdown, DropdownButton, Modal} from 'react-bootstrap'
@@ -15,6 +15,18 @@ export default function ResourcePage(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleImport = () => setShow(false);  //handle importing
+
+    const addRow =()=>{
+        var row = {}
+        var tableData = props.tableData
+        for (var k in props.tableData[0]){
+            row[k] = "empty";
+        }
+        tableData.push(row);
+        setState({tableData: tableData})
+    }
+
+
     return (
         //search bar + user information
         <div>
@@ -38,7 +50,7 @@ export default function ResourcePage(props) {
                             title={<span><FontAwesomeIcon icon="plus" /> </span>}
                             className="navbar-toggler-right"
                         >
-                            <Dropdown.Item ><FontAwesomeIcon icon="align-left" /> <span>Add Row</span></Dropdown.Item>
+                            <Dropdown.Item onClick={addRow}><FontAwesomeIcon icon="align-left" /> <span>Add Row</span></Dropdown.Item>
                             <Dropdown.Item ><FontAwesomeIcon icon="columns" /> <span>Add Colunmn</span></Dropdown.Item>
                             <Dropdown.Item onClick={handleShow}><FontAwesomeIcon icon="file-csv" /> <span>Import CSV</span></Dropdown.Item>
                         </DropdownButton>

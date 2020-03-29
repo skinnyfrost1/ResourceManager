@@ -32,7 +32,11 @@ class App extends Component {
     // const url = "https://jsonplaceholder.typicode.com/albums";
     const response = await fetch(url);
     const data = await response.json();
-    this.setState({ tableData: data, showposts: false, beforeFetching: false });
+    const tableHeads = [];
+    for (var k in data[0]){
+      tableHeads.push(k);
+    }
+    this.setState({ tableData: data, tableHeads: tableHeads,showposts: false, beforeFetching: false });
     console.log(this.state.tableData);
   }
 
