@@ -1,12 +1,13 @@
-import React,{Component, useState, useEffect,setState} from "react";
+import React,{useState} from "react";
 import "./Resource.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, Form, FormControl, Button, Nav, MenuItem, Dropdown, DropdownButton, Modal} from 'react-bootstrap'
-import DropdownItem from "react-bootstrap/DropdownItem";
+// import DropdownItem from "react-bootstrap/DropdownItem";
 import DataTable from "../DataTable/DataTable";
 
 
 export default function ResourcePage(props) {
+    
     const [toggle, setToggle] = useState(false);
 
     //handle popup
@@ -31,6 +32,17 @@ export default function ResourcePage(props) {
         tableData.push(row);
         props.updateTable(tableData);
     }
+    
+    let tt = {
+        columns: [],
+        data: props.tableData
+    }
+
+    for (var k in props.tableData[0]) {
+        tt['columns'].push({ title: k, field: k })
+
+    }
+    console.log("i am in Resource");
 
 
     return (
@@ -102,7 +114,7 @@ export default function ResourcePage(props) {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <DataTable tableData ={props.tableData}></DataTable>
+            <DataTable tt={tt} tableData ={props.tableData}></DataTable>
         </div>
         
     )

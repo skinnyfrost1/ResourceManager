@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-import Store from "./components/store/store";
-import HOC from "./components/hoc/hocValidation";
-import Navbar from './components/Navigation/NavBar/NavBar';
-import Login from './components/UserForms/Login/Login';
-import Signup from './components/UserForms/Signup/Signup';
+// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import { Provider } from "react-redux";
+// import Store from "./components/store/store";
+// import HOC from "./components/hoc/hocValidation";
+// import Navbar from './components/Navigation/NavBar/NavBar';
+// import Login from './components/UserForms/Login/Login';
+// import Signup from './components/UserForms/Signup/Signup';
 import Resource from './components/Resource/Resource';
-import Project from './components/Project/Project';
-import Formula from './components/Formula/Formula';
-import Template from './components/Template/Template';
+// import Project from './components/Project/Project';
+// import Formula from './components/Formula/Formula';
+// import Template from './components/Template/Template';
 import {
   faUserCircle, faQuestionCircle, faSearch, faPlus,
   faCheckCircle, faTimesCircle, faList, faShare, faTrashAlt,
@@ -45,7 +45,7 @@ class App extends Component {
       tableHeads.push(k);
     }
     this.setState({ tableData: data, tableHeads: tableHeads, showposts: false, beforeFetching: false });
-    console.log(this.state.tableData);
+    // console.log(this.state.tableData);
   }
 
   render() {

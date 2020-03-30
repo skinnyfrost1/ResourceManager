@@ -1,198 +1,271 @@
-
-import React, {useState} from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
-import PropTypes from 'prop-types';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-
-
-
-
-
-
-
-
-const useStyles1 = makeStyles(theme => ({
-    root: {
-        flexShrink: 0,
-        marginLeft: theme.spacing(2.5),
-    },
-}));
-
-
-function TablePaginationActions(props) {
-    const classes = useStyles1();
-    const theme = useTheme();
-    const { count, page, rowsPerPage, onChangePage } = props;
-
-    const handleFirstPageButtonClick = event => {
-        onChangePage(event, 0);
-    };
-
-    const handleBackButtonClick = event => {
-        onChangePage(event, page - 1);
-    };
-
-    const handleNextButtonClick = event => {
-        onChangePage(event, page + 1);
-    };
-
-    const handleLastPageButtonClick = event => {
-        onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-    };
-
-
-    // const useStyles2 = makeStyles({
-    //     table: {
-    //         minWidth: 500,
-    //         maxwidth: 800
-    //     },
-    // });
-
-
-    return (
-        <div className={classes.root}>
-            <IconButton
-                onClick={handleFirstPageButtonClick}
-                disabled={page === 0}
-                aria-label="first page"
-            >
-                {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-            </IconButton>
-            <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
-                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            </IconButton>
-            <IconButton
-                onClick={handleNextButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                aria-label="next page"
-            >
-                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-            </IconButton>
-            <IconButton
-                onClick={handleLastPageButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                aria-label="last page"
-            >
-                {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-            </IconButton>
-        </div>
-    );
-}
-
-TablePaginationActions.propTypes = {
-    count: PropTypes.number.isRequired,
-    onChangePage: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
-    rowsPerPage: PropTypes.number.isRequired,
+import React, { Component } from "react";
+import { csv } from "d3";
+import data from "../../assets/data/data.csv";
+import MaterialTable, { MTableToolbar } from "material-table";
+import { Dropdown } from "react-bootstrap";
+import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
+import { Modal, Button } from "react-bootstrap";
+import SearchIcon from "@material-ui/icons/Search";
+import FormatAlignLeftIcon from "@material-ui/icons/FormatAlignLeft";
+import Papa from "papaparse";
+// import "./resources.css";
+const createData = (cost_code, name) => {
+  return { cost_code, name };
 };
 
-const useStyles2 = makeStyles({
-    table: {
-        minWidth: 500,
-    },
-});
-export default function DataTable(props) {
-    console.log(props);
-    let rows = props.tableData
-    //get table heads./
-    let tableHeads = [];
-    for (var k in props.tableData[0]) {
-        tableHeads.push(k)
+
+
+
+class DataTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableData: [],
+      selectedRow: null,
+      showAddModal: false,
+      showFileModal: false
+    };
+  }
+  handleAddModalClose = () => {
+    this.setState({ showAddModal: false });
+  };
+  handleAddModalShow = () => {
+    this.setState({ showAddModal: !this.state.showAddModal });
+  };
+  //   this for display or hide the file upload modal
+  handleFileModalClose = () => {
+    this.setState({ showFileModal: false });
+  };
+  handleFileModalShow = () => {
+    this.setState({ showFileModal: !this.state.showFileModal });
+  };
+
+  handleFileChange = evt => {
+    let file = evt.target.files[0];
+    Papa.parse(file, {
+      header: true,
+      dynamicTyping: true,
+      complete: results => this.setState({ tableData: results.data })
+    });
+    this.handleFileModalClose();
+  };
+
+//   csvFileRead = evt => {
+//     csv(data).then(data => {
+//       let tableData = this.state.tableData;
+//       data.map(data => {
+//         tableData.push(createData(data.cost_code, data.name));
+//       });
+//       this.setState({ tableData });
+//     });
+//   };
+
+//   componentDidMount() {
+//     this.csvFileRead();
+//   }
+
+
+  async componentWillMount() {
+    const url = "https://jsonplaceholder.typicode.com/posts";
+    // const url = "https://jsonplaceholder.typicode.com/albums";
+    const response = await fetch(url);
+    const data = await response.json();
+    const tableHeads = [];
+    for (var k in data[0]) {
+      tableHeads.push(k);
     }
+    this.setState({ tableData: data, tableHeads: tableHeads, showposts: false, beforeFetching: false });
+    // console.log(this.state.tableData);
+  }
 
-
-    const classes = useStyles2();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-    const handleChangeRowsPerPage = event => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-    // const [tableData,setTableData] = useState("");
-
-
-
+  render() {
     return (
-        <TableContainer component={Paper}>
-            <Table className="project1" size="small" aria-label="a dense table">
-                <TableHead>
-                    <TableRow>
-                        {
-                            tableHeads.map(k => {
-                                return (
-                                    //@Todo here is a ERROR. MISSING a KEY.  
-                                    <TableCell align="left">{k}</TableCell>
-                                )
-                            })
-                        }
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {(rowsPerPage > 0
-                        ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : rows
-                    ).map(row => (
-                        <TableRow key={row.id}>
-                            {tableHeads.map(k=>{
-                                return (
-                                    <TableCell key={"ele-"+Math.random()} align="left">{row[k]}</TableCell>
-                                )
-                            })}
-                        </TableRow>
-                    ))}
+      <div style={{ maxWidth: "100%", margin: "50px" }}>
+        <MaterialTable
+          columns={[
+            {
+              title: "title",
+              field: "title",
+              editComponent: props => (
+                <input
+                  type="text"
+                  value={props.value}
+                  required
+                  onChange={e => props.onChange(e.target.value)}
+                />
+              )
+            },
+            { title: "body", field: "body" }
+          ]}
+          data={this.state.tableData}
+          onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
+          options={{
+            rowStyle: rowData => ({
+              backgroundColor:
+                this.state.selectedRow &&
+                this.state.selectedRow.tableData.id === rowData.tableData.id
+                  ? "#EEE"
+                  : "#FFF"
+            }),
+            sorting: true
+          }}
+          editable={{
+            onRowAdd: newData =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  {
+                    const data = this.state.tableData;
+                    data.push(newData);
+                    this.setState({ tableData: data }, () => resolve());
+                  }
+                  resolve();
+                }, 1000);
+              }),
+            onRowUpdate: (newData, oldData) =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  {
+                    const data = this.state.tableData;
+                    const index = data.indexOf(oldData);
+                    data[index] = newData;
+                    this.setState({ tableData: data }, () => resolve());
+                  }
+                  resolve();
+                }, 1000);
+              }),
+            onRowDelete: oldData =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  {
+                    let data = this.state.tableData;
+                    const index = data.indexOf(oldData);
+                    data.splice(index, 1);
+                    this.setState({ tableData: data }, () => resolve());
+                  }
+                  resolve();
+                }, 1000);
+              })
+          }}
+          components={{
+            Toolbar: props => (
+              <div>
+                <div
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#999",
+                    padding: "5px 10px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                  }}
+                >
+                  <div
+                    className="input-group md-form form-sm form-2 pl-0"
+                    style={{ width: "20%" }}
+                  >
+                    <input
+                      className="form-control my-0 py-1 amber-border"
+                      type="text"
+                      placeholder="Search"
+                      aria-label="Search"
+                      value={this.state.searchString}
+                      onChange={this.handleChange}
+                    />
+                    <div className="input-group-append">
+                      <button
+                        className="input-group-text amber search-bar-color"
+                        id="basic-text1"
+                        onClick={this.handleopenDropDown}
+                      >
+                        <SearchIcon />
+                      </button>
+                    </div>
+                  </div>
+                  <h6>Resource Catalog</h6>
+                  <Dropdown>
+                    <Dropdown.Toggle className="add-btn">+ </Dropdown.Toggle>
 
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                            <TableCell colSpan={6} />
-                        </TableRow>
-                    )}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                            colSpan={tableHeads.length}
-                            count={rows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            SelectProps={{
-                                inputProps: { 'aria-label': 'rows per page' },
-                                native: true,
-                            }}
-                            onChangePage={handleChangePage}
-                            onChangeRowsPerPage={handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                </TableFooter>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={this.addRow}></Dropdown.Item>
+                      <Dropdown.Item onClick={this.handleAddModalShow}>
+                        <ImportContactsIcon className="mr-4" /> Add Column
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={this.handleFileModalShow}>
+                        <InsertDriveFileIcon className="mr-4 text-dark" />
+                        Import CSV
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
+                <MTableToolbar {...props} />
 
-            </Table>
-        </TableContainer>
-    )
-
-
-
-
-
-
+                <Modal
+                  show={this.state.showAddModal}
+                  onHide={this.handleAddModalClose}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Adding New Column</Modal.Title>
+                  </Modal.Header>
+                  <form onSubmit={this.addCol}>
+                    <Modal.Body>
+                      <h6>Column Name</h6>
+                      <input
+                        value={this.state.newCol}
+                        type="text"
+                        required
+                        onChange={this.handleAddColumn}
+                      />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        variant="secondary"
+                        onClick={this.handleAddModalClose}
+                      >
+                        Close
+                      </Button>
+                      <Button variant="primary" type="submit">
+                        Save Changes
+                      </Button>
+                    </Modal.Footer>
+                  </form>
+                </Modal>
+                <Modal
+                  show={this.state.showFileModal}
+                  onHide={this.handleFileModalClose}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Upload CSV File</Modal.Title>
+                  </Modal.Header>
+                  <form>
+                    <Modal.Body>
+                      <input
+                        type="file"
+                        multiple
+                        onChange={e => this.handleFileChange(e)}
+                        required
+                      />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        variant="secondary"
+                        onClick={this.handleFileModalClose}
+                      >
+                        Close
+                      </Button>
+                      <Button variant="primary" type="submit">
+                        Upload
+                      </Button>
+                    </Modal.Footer>
+                  </form>
+                </Modal>
+              </div>
+            )
+          }}
+        />
+      </div>
+    );
+  }
 }
 
-
+export default DataTable;
