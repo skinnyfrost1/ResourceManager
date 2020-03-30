@@ -37,7 +37,7 @@ export const signUp = signUpData => {
             confirmPassword: signUpData.user.confirmPassword
         };
 
-        let userArray = JSON.parse(localStorage.getItem("token")); // []
+        let userArray = JSON.parse(localStorage.getItem("token")) || [];
         const matchingError = userArray.find(
             user => user.email === signUpInfo
         );

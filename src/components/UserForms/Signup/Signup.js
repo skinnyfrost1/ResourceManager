@@ -12,7 +12,7 @@ const SignUp = props => {
   const [show, setShow] = useState(true);
 
   const onShow = () => {
-    setShow(!setShow);
+    setShow(!show);
   };
 
   const onSubmit = e => {
@@ -26,8 +26,7 @@ const SignUp = props => {
     <div className="SignUpForm">
       {props.errors ? (
         <div className="alert alert-danger" role="alert">
-          {" "}
-          {props.errors}{" "}
+          {props.errors}
         </div>
       ) : null}
       ;<h1 className="SignUpHeader"> Sign Up </h1>
@@ -36,20 +35,21 @@ const SignUp = props => {
           <Form.Label className="float-left">Enter Name: </Form.Label>
           <Form.Control
             name="name"
-            value={props.user.name}
+            value={props.name}
             onChange={props.handleChange}
             type="text"
             placeholder="Enter Your Name"
             className={name ? "inavlid" : ""}
             required
           />
-          <div className="error">{name}</div>
+          <span className="error">{name}</span>
+
         </Form.Group>
         <Form.Group>
           <Form.Label className="float-left">Enter Email: </Form.Label>
           <Form.Control
             name="email"
-            value={props.user.email}
+            value={props.email}
             onChange={props.handleChange}
             type="email"
             placeholder="Enter Your Email"
@@ -62,7 +62,7 @@ const SignUp = props => {
           <Form.Label className="float-left">Enter Password: </Form.Label>
           <Form.Control
             name="password"
-            value={props.user.password}
+            value={props.password}
             onChange={props.handleChange}
             type="text"
             placeholder="Enter Your Password"
@@ -76,11 +76,11 @@ const SignUp = props => {
           <Form.Label className="float-left">Confirm Password: </Form.Label>
           <Form.Control
             name="confirmPassword"
-            value={props.user.confirmPassword}
+            value={props.confirmPassword}
             onChange={props.handleChange}
             type={show ? "password" : "text"}
             placeholder="Confirm Your Password"
-            className={confirmPassword ? "inavlid" : ""}
+            className={props.confirmPassword ? "inavlid" : ""}
             required
           />
           <Button onClick={onShow}>Toggle Confirm Password</Button>
@@ -89,7 +89,7 @@ const SignUp = props => {
         <Button
           className="btn btn-block text-white btn-color"
           type="submit"
-          disabled={!props.signUpEnabled}
+          disabled={props.signUpEnabled}
         >
           Signup
         </Button>

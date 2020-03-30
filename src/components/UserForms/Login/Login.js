@@ -42,6 +42,7 @@ const LogIn = props => {
                         placeholder="Enter Your Email"
                         required
                         className={props.email ? "invalid" : ""}
+                        required
                     />
                 </Form.Group>
 
