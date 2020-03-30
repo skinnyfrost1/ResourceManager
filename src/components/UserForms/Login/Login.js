@@ -35,7 +35,7 @@ const LogIn = props => {
                 <Form.Group>
                     <Form.Label className="float-left font-weight-bold">User Email: </Form.Label>
                     <Form.Control
-                        inputType="email"
+                        name="email"
                         value={props.email}
                         onChange={props.handleChange}
                         type="email"
@@ -48,9 +48,9 @@ const LogIn = props => {
                 <Form.Group>
                     <Form.Label className="float-left">Password</Form.Label>
                     <Form.Control
+                        name="password"
                         value={props.password}
                         onChange={props.handleChange}
-                        inputType="password"
                         type={show ? "password" : "text"}
                         placeholder="Enter Your Password"
                         className={props.password ? "invalid" : "" }
@@ -61,13 +61,13 @@ const LogIn = props => {
 
                 <Form.Group controlId="formBasicCheckbox" />
 
-                <Button className="btn btn-block text-white btn-color" type="submit" disable={!props.logInEnabled}>Login</Button>
+                <Button className="btn btn-block text-white btn-color" type="submit" disabled={!props.logInEnabled}>Login</Button>
 
                 <Form.Group className="float-left">
                     <Form.Check type="checkbox" lable="Remember me" />
                 </Form.Group>
             </Form>
-            <Button className="btn btn-color text-white" onClick={history.push("/signup")}>Sign Up</Button>
+            <Button className="btn btn-color text-white" onClick={()=>history.push("/signup")}>Sign Up</Button>
         </div>
     );
 };
@@ -87,6 +87,6 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-const LogInComponent = HOC(LogIn);
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogInComponent);
+
+export default connect(mapStateToProps, mapDispatchToProps)(HOC(LogIn));

@@ -35,11 +35,13 @@ const Sidebar = () => {
             {style === "sidebar" ? (
               <img
                 src={Arrow}
+                alt="Toggle Sidebar"
                 onClick={handleClick}
               />
             ) : (
               <img
                 src={Arrow}
+                alt="Toggle Sidebar"
                 style={{ transform: "rotate(180deg)" }}
                 onClick={handleClick}
               />

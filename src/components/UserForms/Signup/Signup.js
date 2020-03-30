@@ -7,7 +7,7 @@ import { Form, Button } from "react-bootstrap";
 import HOC from "../../hoc/hocValidation";
 
 import { signUp } from "../../store/actions/signupAuth";
-import { useHistory } from "react-router-dom";
+
 const SignUp = props => {
   const [show, setShow] = useState(true);
 
@@ -20,10 +20,8 @@ const SignUp = props => {
     props.signUp(props);
   };
 
-  const { name, email, password, confirmPassword } = props.userInfo.errors;
-  const backToSignup = () => {
-    props.history.push("/");
-  };
+  const { name, email, password, confirmPassword } = props.user.errors;
+ 
   return (
     <div className="SignUpForm">
       {props.errors ? (
@@ -37,9 +35,9 @@ const SignUp = props => {
         <Form.Group>
           <Form.Label className="float-left">Enter Name: </Form.Label>
           <Form.Control
-            value={props.userInfo.name}
+            name="name"
+            value={props.user.name}
             onChange={props.handleChange}
-            inputType="name"
             type="text"
             placeholder="Enter Your Name"
             className={name ? "inavlid" : ""}
@@ -50,9 +48,9 @@ const SignUp = props => {
         <Form.Group>
           <Form.Label className="float-left">Enter Email: </Form.Label>
           <Form.Control
-            value={props.userInfo.email}
+            name="email"
+            value={props.user.email}
             onChange={props.handleChange}
-            inputType="email"
             type="email"
             placeholder="Enter Your Email"
             className={email ? "inavlid" : ""}
@@ -63,9 +61,9 @@ const SignUp = props => {
         <Form.Group>
           <Form.Label className="float-left">Enter Password: </Form.Label>
           <Form.Control
-            value={props.userInfo.password}
+            name="password"
+            value={props.user.password}
             onChange={props.handleChange}
-            inputType="password"
             type="text"
             placeholder="Enter Your Password"
             className={password ? "inavlid" : ""}
@@ -77,9 +75,9 @@ const SignUp = props => {
         <Form.Group>
           <Form.Label className="float-left">Confirm Password: </Form.Label>
           <Form.Control
-            value={props.userInfo.confirmPassword}
+            name="confirmPassword"
+            value={props.user.confirmPassword}
             onChange={props.handleChange}
-            inputType="confirmPassword"
             type={show ? "password" : "text"}
             placeholder="Confirm Your Password"
             className={confirmPassword ? "inavlid" : ""}
@@ -124,6 +122,5 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const SignUpComponent = HOC(SignUp);
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(HOC(SignUp));
