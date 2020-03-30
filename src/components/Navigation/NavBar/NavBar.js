@@ -10,8 +10,9 @@ import Logo from "../../../assets/images/rm_logo.png"
 export default function NavBar(props) {
 
   let isAuth = localStorage.getItem("LOGINtoken");
-  let name = JSON.parse(localStorage.getItem("token")).map(user => user.name);
-
+  let userToken = JSON.parse(localStorage.getItem("token")) || [];
+  let name = userToken.map(user => user.name);
+  
   return (
     
       <Navbar
@@ -49,7 +50,7 @@ export default function NavBar(props) {
               style={{ width: 50, height: 50, marginRight : "10px" }}
             />
             <div>
-              {!isAuth ? "afaf" : name}
+              {!isAuth ? "" : name}
             </div>
             <img
               src={question}

@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React , { Component } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import { Provider } from "react-redux";
-// import Store from "./components/store/store";
-// import HOC from "./components/hoc/hocValidation";
-// import Navbar from './components/Navigation/NavBar/NavBar';
-// import Login from './components/UserForms/Login/Login';
-// import Signup from './components/UserForms/Signup/Signup';
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import Store from "./components/store/store";
+
+
+import Navbar from './components/Navigation/NavBar/NavBar';
+import Login from './components/UserForms/Login/Login';
+import Signup from './components/UserForms/Signup/Signup';
 import Resource from './components/Resource/Resource';
 // import Project from './components/Project/Project';
 // import Formula from './components/Formula/Formula';
@@ -23,7 +25,8 @@ library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
   faSquare, faCheckSquare, faFileCsv, faAlignLeft, faColumns);
 
 
-class App extends Component {
+
+  class App extends Component {
 
   state = {
     tableData: [],
@@ -35,7 +38,8 @@ class App extends Component {
     console.log("yes");
     this.setState({ tableData: tableData });
   }
-  async componentWillMount() {
+
+  async componentDidMount() {
     const url = "https://jsonplaceholder.typicode.com/posts";
     // const url = "https://jsonplaceholder.typicode.com/albums";
     const response = await fetch(url);
@@ -47,39 +51,28 @@ class App extends Component {
     this.setState({ tableData: data, tableHeads: tableHeads, showposts: false, beforeFetching: false });
     // console.log(this.state.tableData);
   }
-
   render() {
 
-    console.log(this.state);
-    return (
-      <div className="app">
-
-        <Resource tableData={this.state.tableData} updateTable={this.updateTable} />
-
-      </div>
-    );
-
+  return (
+    <div className="App">
+      <Provider store={Store}>
+        <Router>
+          <Route render={props => <Navbar {...props}/>}/>
+          <Switch>
+            <Route exact path="/" render={props => <Login {...props} />}/>
+            <Route path="/signup" render={props => <Signup {...props} />}/>
+            <Route path="/resource"render ={props => (<Resource tableData={this.state.tableData} updateTable={this.updateTable} />)}/>
+            <Route path="/project" render={props => <Project {...props} />}/>
+            <Route path="/formula" render={props => <Formula {...props} />}/>
+            <Route path="/template" render={props => <Template {...props} />}/>
+          </Switch>
+        </Router>
+      </Provider>
+    </div>
+  );
   }
 }
-// function App() {
-//   return (
-//     <div className="App">
-//       <Provider store={Store}>
-//         <Router>
-//           <Route render={props => <Navbar {...props} />} />
-//           <Route component={props => <HOC {...props} />} />
-//           <Switch>
-//             <Route exact path="/" render={props => <Login {...props} />} />
-//             <Route path="/signup" render={props => <Signup {...props} />} />
-//             <Route path="/resource" render={props => <Resource {...props} />} />
-//             <Route path="/project" render={props => <Project {...props} />} />
-//             <Route path="/formula" render={props => <Formula {...props} />} />
-//             <Route path="/template" render={props => <Template {...props} />} />
-//           </Switch>
-//         </Router>
-//       </Provider>
-//     </div>
-//   );
-// }
 
-export default App;
+
+export default App
+

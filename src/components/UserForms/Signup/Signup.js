@@ -7,7 +7,7 @@ import { Form, Button } from "react-bootstrap";
 import HOC from "../../hoc/hocValidation";
 
 import { signUp } from "../../store/actions/signupAuth";
-import { useHistory } from "react-router-dom";
+
 const SignUp = props => {
   const [show, setShow] = useState(true);
 
@@ -20,39 +20,46 @@ const SignUp = props => {
     props.signUp(props);
   };
 
-  const { name, email, password, confirmPassword } = props.userInfo.errors;
-  const backToSignup = () => {
-    props.history.push("/");
-  };
+  const { name, email, password, confirmPassword } = props.user.errors;
+ 
   return (
-    <div className="SignUpForm">
+    <div style={{
+      width: "35%",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      textAlign: "center"
+    }}
+  >
       {props.errors ? (
         <div className="alert alert-danger" role="alert">
-          {" "}
-          {props.errors}{" "}
+          
+          {props.errors}
         </div>
       ) : null}
-      ;<h1 className="SignUpHeader"> Sign Up </h1>
+      <h1 style={{ color: "hsl(14, 90%, 61%)", fontWeight: "bold" }}
+        className="h1 pb-5"> Sign Up </h1>
       <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label className="float-left">Enter Name: </Form.Label>
           <Form.Control
-            value={props.userInfo.name}
+            value={props.user.name}
             onChange={props.handleChange}
-            inputType="name"
+            name="name"
             type="text"
             placeholder="Enter Your Name"
             className={name ? "inavlid" : ""}
             required
           />
-          <div className="error">{name}</div>
+          <span className="error">{name}</span>
         </Form.Group>
         <Form.Group>
           <Form.Label className="float-left">Enter Email: </Form.Label>
           <Form.Control
-            value={props.userInfo.email}
+            value={props.user.email}
             onChange={props.handleChange}
-            inputType="email"
+            name="email"
             type="email"
             placeholder="Enter Your Email"
             className={email ? "inavlid" : ""}
@@ -60,13 +67,14 @@ const SignUp = props => {
           />
           <div className="error">{email}</div>
         </Form.Group>
-        <Form.Group>
+
+        <Form.Group style={{ position: "relative" }}>
           <Form.Label className="float-left">Enter Password: </Form.Label>
           <Form.Control
-            value={props.userInfo.password}
+            value={props.user.password}
             onChange={props.handleChange}
-            inputType="password"
-            type="text"
+            name="password"
+            type={show ? "password" : "text"}
             placeholder="Enter Your Password"
             className={password ? "inavlid" : ""}
             required
@@ -77,9 +85,9 @@ const SignUp = props => {
         <Form.Group>
           <Form.Label className="float-left">Confirm Password: </Form.Label>
           <Form.Control
-            value={props.userInfo.confirmPassword}
+            value={props.user.confirmPassword}
             onChange={props.handleChange}
-            inputType="confirmPassword"
+            name="confirmPassword"
             type={show ? "password" : "text"}
             placeholder="Confirm Your Password"
             className={confirmPassword ? "inavlid" : ""}
@@ -87,7 +95,7 @@ const SignUp = props => {
           />
           <Button onClick={onShow}>Toggle Confirm Password</Button>
         </Form.Group>
-        <div className="text-danger">{confirmPassword}</div>
+        <span className="text-danger">{confirmPassword}</span>
         <Button
           className="btn btn-block text-white btn-color"
           type="submit"
@@ -111,10 +119,10 @@ const SignUp = props => {
 
 const mapStateToProps = state => {
   return {
+    error: state.signUp.error,
     signUp: state.signUp,
     loading: state.signUp.loading,
     success: state.signUp.success,
-    error: state.signUp.error
   };
 };
 
