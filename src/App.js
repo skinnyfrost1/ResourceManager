@@ -41,7 +41,7 @@ library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
     this.setState({ tableData: tableData });
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const url = "https://jsonplaceholder.typicode.com/posts";
     // const url = "https://jsonplaceholder.typicode.com/albums";
     const response = await fetch(url);
@@ -63,16 +63,17 @@ library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
           <Switch>
             <Route exact path="/" render={props => <Login {...props} />}/>
             <Route path="/signup" render={props => <Signup {...props} />}/>
-            {/* //<Route path="/resource" component={<Resource tableData={this.state.tableData} updateTable={this.updateTable} />}/> */}
+            <Route path="/resource"render ={props => (<Resource tableData={this.state.tableData} updateTable={this.updateTable} />)}/>
             <Route path="/project" render={props => <Project {...props} />}/>
             <Route path="/formula" render={props => <Formula {...props} />}/>
             <Route path="/template" render={props => <Template {...props} />}/>
           </Switch>
-        </Router>ß
+        </Router>
       </Provider>
     </div>
   );
   }
 }
 
-export default App;
+export default App
+

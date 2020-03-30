@@ -46,7 +46,7 @@ export const logIn = userLoginInfo => {
             localStorage.setItem("LOGINtoken", true); 
             logInSuccess(userLoginInfo.user);
         } else {
-            let invalidCred = "Invalid Credentials";
+            let invalidCred = "Invalid Credentials. Please sign up to create an account";
             userLoginInfo.user.errors.password = invalidCred;
             logInFail(invalidCred);
         };
