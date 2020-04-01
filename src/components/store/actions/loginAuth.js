@@ -38,13 +38,15 @@ export const logIn = userLoginInfo => {
     return dispatch => {
         dispatch(logInStart());
 
-        let userToken = JSON.parse(localStorage.getItem("token"));
+        let userToken = JSON.parse(localStorage.getItem("token")) || [];
         let userMatch = userToken && userToken.find( USER => (USER.email === userLoginInfo.user.email && USER.password === userLoginInfo.user.password));
 
         if (userMatch) {
-            userLoginInfo.history.push("/resource"); //direct user to resource page upon logging in successfully
+            userLoginInfo.history.push("/resource"); //direct user to resource page
             localStorage.setItem("LOGINtoken", true); 
+            localStorage.setItem("NAMEtoken", JSON.stringify(userToken));
             logInSuccess(userLoginInfo.user);
+
         } else {
             let invalidCred = "Invalid Credentials. Please sign up to create an account";
             userLoginInfo.user.errors.password = invalidCred;
