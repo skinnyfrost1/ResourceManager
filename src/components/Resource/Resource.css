@@ -65,3 +65,10 @@ li {
 a.dropdown-item {
     padding: auto 0;
 } */
+
+
+.resourceTableContainer{
+    padding: 20%;
+    padding-top: 50px;
+    left:35%
+}
