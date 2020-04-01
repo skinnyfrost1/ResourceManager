@@ -28,29 +28,29 @@ library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
 
   class App extends Component {
 
-  state = {
-    tableData: [],
-    showposts: false,
-    beforeFetching: true
-  }
+  // state = {
+  //   tableData: [],
+  //   showposts: false,
+  //   beforeFetching: true
+  // }
 
-  updateTable = (tableData) => {
-    console.log("yes");
-    this.setState({ tableData: tableData });
-  }
+  // updateTable = (tableData) => {
+  //   console.log("yes");
+  //   this.setState({ tableData: tableData });
+  // }
 
-  async componentDidMount() {
-    const url = "https://jsonplaceholder.typicode.com/posts";
-    // const url = "https://jsonplaceholder.typicode.com/albums";
-    const response = await fetch(url);
-    const data = await response.json();
-    const tableHeads = [];
-    for (var k in data[0]) {
-      tableHeads.push(k);
-    }
-    this.setState({ tableData: data, tableHeads: tableHeads, showposts: false, beforeFetching: false });
-    console.log(this.state.tableData);
-  }
+  // async componentDidMount() {
+  //   const url = "https://jsonplaceholder.typicode.com/posts";
+  //   // const url = "https://jsonplaceholder.typicode.com/albums";
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   const tableHeads = [];
+  //   for (var k in data[0]) {
+  //     tableHeads.push(k);
+  //   }
+  //   this.setState({ tableData: data, tableHeads: tableHeads, showposts: false, beforeFetching: false });
+  //   console.log(this.state.tableData);
+  // }
   render() {
 
   return (
@@ -61,7 +61,7 @@ library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
           <Switch>
             <Route exact path="/" render={props => <Login {...props} />}/>
             <Route path="/signup" render={props => <Signup {...props} />}/>
-            <Route path="/resource"render ={props => (<Resource tableData={this.state.tableData} updateTable={this.updateTable} />)}/>
+            {/* <Route path="/resource"render ={props => (<Resource  />)}/> */}
             <Route path="/project" render={props => <Project {...props} />}/>
             <Route path="/formula" render={props => <Formula {...props} />}/>
             <Route path="/template" render={props => <Template {...props} />}/>
