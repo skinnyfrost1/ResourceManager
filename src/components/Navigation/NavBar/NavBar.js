@@ -1,5 +1,5 @@
-import React from "react";
-import { Navbar } from "react-bootstrap";
+import React, { useState } from "react";
+import { Navbar, Modal, Button } from "react-bootstrap";
 
 import Sidebar from "../SideBar/SideBar";
 
@@ -9,12 +9,24 @@ import Logo from "../../../assets/images/rm_logo.png"
 
 export default function NavBar(props) {
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   let isAuth = localStorage.getItem("LOGINtoken");
   let userToken = JSON.parse(localStorage.getItem("token")) || [];
   let name = userToken.map(user => user.name);
+
+  const logout = () => {
+    localStorage.removeItem("LOGINtoken");
+    props.history.push("/");
+    setShow(false);
+  }
+
   
   return (
-    
+    <div>
       <Navbar
         bg="light"
         style={{
@@ -47,8 +59,10 @@ export default function NavBar(props) {
             <img
               src={userProf}
               alt="User Profile"
+              onClick={handleShow}
               style={{ width: 50, height: 50, marginRight : "10px" }}
             />
+            
             <div>
               {!isAuth ? "" : name}
             </div>
@@ -60,5 +74,20 @@ export default function NavBar(props) {
           </div>
         </div>
       </Navbar>
+      {isAuth ? (
+        <Modal show={show} onHide={handleClose } animation={false}>
+            <Modal.Header closeButton>
+                <Modal.Title><h4 style = {{ paddingLeft: "120px" }}><img src={userProf} style = {{ paddingRight: "15px" }}></img>{name}</h4></Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <h5 style = {{ textAlign: "center" }}>Member Since <br /> November-2015</h5>
+                <Button style ={{ float:"left" }}>Profile</Button>
+                <Button onClick={logout} style ={{ float:"right" }}>Logout</Button>
+            </Modal.Body>
+            
+        </Modal>
+        ) : null}
+    </div>
   );
 }

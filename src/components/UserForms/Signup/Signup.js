@@ -40,7 +40,7 @@ const SignUp = props => {
       ) : null}
       <h1 style={{ color: "hsl(14, 90%, 61%)", fontWeight: "bold" }}
         className="h1 pb-5"> Sign Up </h1>
-      <Form onSubmit={onSubmit}>
+      <Form style={{ paddingBottom: "30px" }} onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label className="float-left">Enter Name: </Form.Label>
           <Form.Control
@@ -70,6 +70,7 @@ const SignUp = props => {
 
         <Form.Group style={{ position: "relative" }}>
           <Form.Label className="float-left">Enter Password: </Form.Label>
+          <Button className ="btn btn-sm float-right" onClick={onShow}>Toggle</Button>
           <Form.Control
             value={props.user.password}
             onChange={props.handleChange}
@@ -79,11 +80,11 @@ const SignUp = props => {
             className={password ? "inavlid" : ""}
             required
           />
-          <Button onClick={onShow}>Toggle Password</Button>
         </Form.Group>
         <div className="text-danger">{password}</div>
         <Form.Group>
           <Form.Label className="float-left">Confirm Password: </Form.Label>
+          <Button className ="btn btn-sm float-right" onClick={onShow}>Toggle</Button>
           <Form.Control
             value={props.user.confirmPassword}
             onChange={props.handleChange}
@@ -93,7 +94,6 @@ const SignUp = props => {
             className={confirmPassword ? "inavlid" : ""}
             required
           />
-          <Button onClick={onShow}>Toggle Confirm Password</Button>
         </Form.Group>
         <span className="text-danger">{confirmPassword}</span>
         <Button
@@ -104,15 +104,15 @@ const SignUp = props => {
           Signup
         </Button>
       </Form>
-      <div>
-        <h6 className="float-right">Already Signed Up?</h6>
+      <span>
         <Button
-          className="text-white btn-color btn"
+          className="float-right text-white btn-color btn"
           onClick={() => props.history.push("/")}
         >
           Login
         </Button>
-      </div>
+        <h6 className="float-right" style= {{ paddingRight: "20px", paddingTop: "8px"}} >Already Signed Up?</h6>
+      </span>
     </div>
   );
 };

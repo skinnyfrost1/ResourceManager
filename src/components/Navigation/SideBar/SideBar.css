@@ -8,6 +8,7 @@
     visibility: hidden;
     transition: all 0.3s ease-in;
     transform: translateX(-50%);
+    z-index:10000;
   }
   .sidebar .sidebarLinks {
     color:white;
@@ -16,7 +17,7 @@
     text-align: left;
     padding-left: 20px;
   }
-  .sidebar .router .empty {
+  .sidebar .sidebarNav .sidebarEmpty {
     width: 300px;
     background:black;
     height: 35px;

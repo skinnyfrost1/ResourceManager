@@ -38,6 +38,7 @@ export const signUp = signUpData => {
         };
 
         let userArray = JSON.parse(localStorage.getItem("token")) || [];
+        console.log(userArray);
         const matchingError = userArray.find(
             user => user.email === signUpInfo
         );
@@ -46,6 +47,7 @@ export const signUp = signUpData => {
         } else {
             userArray.push(signUpInfo);
             localStorage.setItem("token", JSON.stringify(userArray));
+            signUpData.history.push("/")
         };
     };
 };

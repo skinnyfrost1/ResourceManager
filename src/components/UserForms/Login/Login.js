@@ -38,7 +38,7 @@ const LogIn = props => {
 
             <h1 style={{ color: "hsl(14, 90%, 61%)", fontWeight: "bold" }}> Log In </h1>
 
-            <Form onSubmit={onSubmit} noValidate>
+            <Form style={{ paddingBottom: "30px" }} onSubmit={onSubmit} noValidate>
                 <Form.Group>
                     <Form.Label className="float-left font-weight-bold">User Email: </Form.Label>
                     <Form.Control
@@ -54,8 +54,9 @@ const LogIn = props => {
                 </Form.Group>
 
                 <Form.Group style={{ position: "relative" }}>
-                    <Form.Label className="float-left">Password</Form.Label>
-                    <Form.Control
+                <Form.Label className="float-left font-weight-bold">Password: </Form.Label>
+                <Button className ="btn btn-sm float-right" onClick={onShow}>Toggle</Button>
+                   <Form.Control
                         value={props.user.password}
                         onChange={props.handleChange}
                         name="password"
@@ -64,19 +65,15 @@ const LogIn = props => {
                         className={props.user.errors.password ? "invalid" : "" }
                         required
                     />
-                    <Button onClick={onShow}>Toggle Password</Button>
+                    
                     <div className="text-danger">{props.user.errors.password}</div>
                 </Form.Group>
 
-                <Form.Group controlId="formBasicCheckbox" />
 
                 <Button className="btn btn-block text-white btn-color" type="submit" disabled={!props.logInEnabled}>Login</Button>
 
-                <Form.Group className="float-left">
-                    <Form.Check type="checkbox" lable="Remember me" />
-                </Form.Group>
             </Form>
-            <Button className="btn btn-color text-white" onClick={()=> history.push("/signup")}>Sign Up</Button>
+            <h6 className="float-left" style={{ paddingTop: "8px" }}>Need to create an account?</h6><Button className="btn text-white float-right" onClick={()=> history.push("/signup")}>Sign Up</Button>
         </div>
     );
 };

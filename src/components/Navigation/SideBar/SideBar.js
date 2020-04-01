@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./SideBar.css";
 import { NavLink } from "react-router-dom";
 
 import Arrow from "../../../assets/images/arrowButton.png"
@@ -8,7 +8,6 @@ const Sidebar = () => {
     { url: "/resource", name: "Resource" },
     { url: "/project", name: "Project" },
     { url: "/formula", name: "Formula" },
-    { url: "/template", name: "template"}
   ];
   const [open, setOpen] = useState("open");
   const [style, setStyle] = useState("sidebar");
@@ -30,8 +29,8 @@ const Sidebar = () => {
   return (
     <div>
       <div className={style}>
-        <div className="router">
-          <li className="empty">
+        <div className="sidebarNav">
+          <li className="sidebarEmpty">
             {style === "sidebar" ? (
               <img
                 src={Arrow}
