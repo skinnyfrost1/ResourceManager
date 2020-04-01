@@ -15,11 +15,12 @@ export default function NavBar(props) {
   const handleShow = () => setShow(true);
 
   let isAuth = localStorage.getItem("LOGINtoken");
-  let userToken = JSON.parse(localStorage.getItem("token")) || [];
-  let name = userToken.map(user => user.name);
+  let nameToken = JSON.parse(localStorage.getItem("NAMEtoken")) || [];
+  let name = nameToken.map(user => user.name);
 
   const logout = () => {
     localStorage.removeItem("LOGINtoken");
+    localStorage.removeItem("NAMEtoken");
     props.history.push("/");
     setShow(false);
   }
@@ -77,7 +78,7 @@ export default function NavBar(props) {
       {isAuth ? (
         <Modal show={show} onHide={handleClose } animation={false}>
             <Modal.Header closeButton>
-                <Modal.Title><h4 style = {{ paddingLeft: "120px" }}><img src={userProf} style = {{ paddingRight: "15px" }}></img>{name}</h4></Modal.Title>
+                <Modal.Title><h4 style = {{ paddingLeft: "120px" }}><img alt="User Profile" src={userProf} style = {{ paddingRight: "15px" }}></img>{name}</h4></Modal.Title>
             </Modal.Header>
 
             <Modal.Body>

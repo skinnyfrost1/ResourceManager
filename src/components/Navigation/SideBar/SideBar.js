@@ -9,8 +9,10 @@ const Sidebar = () => {
     { url: "/project", name: "Project" },
     { url: "/formula", name: "Formula" },
   ];
-  const [open, setOpen] = useState("open");
+  const [open, setOpen] = useState("close");
   const [style, setStyle] = useState("sidebar");
+
+  let isAuth = localStorage.getItem("LOGINtoken");
 
   const handleClick = () => {
     switch (open) {
@@ -19,7 +21,7 @@ const Sidebar = () => {
         setStyle("sidebar active");
         break;
       case "close":
-        setOpen("open");
+        if (isAuth) {setOpen("open")};
         setStyle("sidebar");
         break;
       default:
@@ -30,15 +32,17 @@ const Sidebar = () => {
     <div>
       <div className={style}>
         <div className="sidebarNav">
-          <li className="sidebarEmpty">
+          <li className="sidebarLayer">
             {style === "sidebar" ? (
               <img
                 src={Arrow}
+                alt="Toggle Sidebar"
                 onClick={handleClick}
               />
             ) : (
               <img
                 src={Arrow}
+                alt="Toggle Sidebar"
                 style={{ transform: "rotate(180deg)" }}
                 onClick={handleClick}
               />
