@@ -63,7 +63,7 @@ library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
           <Switch>
             <Route exact path="/" render={props => <Login {...props} />}/>
             <Route path="/signup" render={props => <Signup {...props} />}/>
-            <Route path="/resource"render ={props => (<Resource tableData={this.state.tableData} updateTable={this.updateTable} />)}/>
+            <Route path="/resource"render ={props => (<Resource tableData={this.state.tableData} updateTable={this.updateTable} {...props}/>)}/>
             <Route path="/project" render={props => <Project {...props} />}/>
             <Route path="/formula" render={props => <Formula {...props} />}/>
             <Route path="/template" render={props => <Template {...props} />}/>

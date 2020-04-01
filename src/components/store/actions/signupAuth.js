@@ -45,7 +45,7 @@ export const signUp = signUpData => {
             signUpFail("The Email you have provided already exists");
         } else {
             userArray.push(signUpInfo);
-            localStorage.setItem("token", JSON.stringify(userArray));
+            localStorage.setItem("LOGINtoken", JSON.stringify(userArray));
         };
     };
 };

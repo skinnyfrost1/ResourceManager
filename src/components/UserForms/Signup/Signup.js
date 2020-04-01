@@ -100,6 +100,7 @@ const SignUp = props => {
           className="btn btn-block text-white btn-color"
           type="submit"
           disabled={!props.signUpEnabled}
+          onClick={() => props.history.push("/resource")}
         >
           Signup
         </Button>

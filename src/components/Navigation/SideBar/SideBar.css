@@ -16,7 +16,7 @@
     text-align: left;
     padding-left: 20px;
   }
-  .sidebar .router .empty {
+  .sidebar .sidebarNav .sidebarEmpty {
     width: 300px;
     background:black;
     height: 35px;

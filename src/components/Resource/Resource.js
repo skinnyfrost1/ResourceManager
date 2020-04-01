@@ -35,7 +35,7 @@ export default function ResourcePage(props) {
 
     return (
         //search bar + user information
-        <div>
+        <div className="ResourcePage">
             <Navbar bg="light" expand='true' className='ml-auto'>
                 <Nav.Item >
                     <Form inline>
