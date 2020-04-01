@@ -28,7 +28,6 @@ library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
 
   class App extends Component {
 
-
   render() {
 
   return (

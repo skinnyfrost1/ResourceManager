@@ -1,8 +1,12 @@
-header.header{
-  display: grid;
+.header
+{  display: grid;
   grid-template-columns: 1fr repeat(2, max-content);
   padding: .3rem;
   grid-gap: .3rem;
   align-items: end;
-  justify-self: stretch
+  justify-self: stretch}
+
+.dropdown {
+    position: relative;
+    display: grid
 }
