@@ -38,6 +38,7 @@ export const signUp = signUpData => {
         };
 
         let userArray = JSON.parse(localStorage.getItem("token")) || [];
+        console.log(userArray);
         const matchingError = userArray.find(
             user => user.email === signUpInfo
         );
@@ -45,7 +46,8 @@ export const signUp = signUpData => {
             signUpFail("The Email you have provided already exists");
         } else {
             userArray.push(signUpInfo);
-            localStorage.setItem("LOGINtoken", JSON.stringify(userArray));
+            localStorage.setItem("token", JSON.stringify(userArray));
+            signUpData.history.push("/")
         };
     };
 };

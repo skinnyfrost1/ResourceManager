@@ -8,6 +8,7 @@
     visibility: hidden;
     transition: all 0.3s ease-in;
     transform: translateX(-50%);
+    z-index:10000;
   }
   .sidebar .sidebarLinks {
     color:white;
