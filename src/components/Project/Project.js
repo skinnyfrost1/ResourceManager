@@ -40,9 +40,9 @@ export default class Project extends Component {
 ;
 
   componentDidMount() {
-    // const url = "https://jsonplaceholder.typicode.com/posts";
+    const url = "https://jsonplaceholder.typicode.com/posts";
     // const url = "https://jsonplaceholder.typicode.com/albums";
-    const url = "http://localhost:3000/Database/table1.json"
+    // const url = "http://localhost:3000/Database/table1.json"
     // const response = await fetch(url);
     axios.get(url)
       .then(res => {

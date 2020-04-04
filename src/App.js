@@ -12,7 +12,7 @@ import Navbar from './components/Navigation/NavBar/NavBar';
 import Login from './components/UserForms/Login/Login';
 import Signup from './components/UserForms/Signup/Signup';
 import Resource from './components/Resource/Resource';
-import Project from './components/Project/Project';
+import Project2 from './components/Project/Project2';
 import Formula from './components/Formula/Formula';
 import Template from './components/Template/Template';
 import {
@@ -39,7 +39,7 @@ library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
             <Route exact path="/" render={props => <Login {...props} />}/>
             <Route path="/signup" render={props => <Signup {...props} />}/>
             <Route path="/resource"render ={props => (<Resource {...props}/>)}/>
-            <Route path="/project" render={props => <Project {...props} />}/>
+            <Route path="/project" render={props => <Project2 {...props} />}/>
             <Route path="/formula" render={props => <Formula {...props} />}/>
             <Route path="/template" render={props => <Template {...props} />}/>
           </Switch>
