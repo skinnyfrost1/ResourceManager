@@ -1,8 +1,0 @@
-header.header{
-  display: grid;
-  grid-template-columns: 1fr repeat(2, max-content);
-  padding: .3rem;
-  grid-gap: .3rem;
-  align-items: end;
-  justify-self: stretch
-}

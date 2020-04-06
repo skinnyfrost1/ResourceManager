@@ -1,0 +1,77 @@
+.TopBar {
+    background-color: rgb(138, 138, 137);
+    padding: 8px 12px 8px 12px;;
+    display: flex;
+    justify-content: space-between;
+    
+    /* border-style: solid;
+    border-width: 2px;
+    border-color: rgb(138, 138, 137) */
+}
+
+.Title {
+    font-weight: bolder;
+    font-size: 150%;
+    text-align: center;
+    /* margin-left: -100px; */
+}
+
+.Table {
+    width: 98%;
+    margin-left: 1%;
+    margin-right: auto;
+    border-style: solid;
+    border-color: rgb(138, 138, 137);
+    padding-bottom: 12px;
+}
+
+.Button {
+    padding: 6px 10px;
+    background-color: #e16e37;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+
+.checkbox {
+    display: flex;
+    justify-content: space-between;
+    width: 20px;
+    height: 20px;
+    background: #e16e37;
+
+}
+
+.checkbox:checked {
+    color:white
+}
+/* .Button:hover, .Button:focus {
+    background-color: rgb(223, 13, 13);
+} */
+
+.dropdown {
+    /* background-color: #e16e37; */
+    border: none;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    /* display: none; */
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-left: -120px;
+}
+
+.dropdownContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+

@@ -18,11 +18,11 @@ import Template from './components/Template/Template';
 import {
   faUserCircle, faQuestionCircle, faSearch, faPlus,
   faCheckCircle, faTimesCircle, faList, faShare, faTrashAlt,
-  faSquare, faCheckSquare, faFileCsv, faAlignLeft, faColumns
+  faSquare, faCheckSquare, faFileCsv, faAlignLeft, faColumns,faCheck
 } from '@fortawesome/free-solid-svg-icons';
 library.add(faUserCircle, faQuestionCircle, faSearch, faPlus,
   faCheckCircle, faTimesCircle, faList, faShare, faTrashAlt,
-  faSquare, faCheckSquare, faFileCsv, faAlignLeft, faColumns);
+  faSquare, faCheckSquare, faFileCsv, faAlignLeft, faColumns,faCheck);
 
 
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './LeftTable.css'
 
-// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,15 +13,16 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import TablePagination from "@material-ui/core/TablePagination";
 
-export default function LeftTable (props)  {
+export default function RightTable(props) {
     const data = props.data
     const titles = props.titles
     const rows = props.rows
     const colunmns = props.colunmns
-    const page = props.page
-    const rowsPerPage = props.rowsPerPage
-    
-    // console.log(data.length,"data lengtht")
+    // const page = props.page
+    // const rowsPerPage = props.rowsPerPage
+    const page = props.pageRight
+    const rowsPerPage = props.rowsPerPageRight
+    // console.log(titles)
 
     // const titles = []
     // const colunmns = []
@@ -31,12 +32,11 @@ export default function LeftTable (props)  {
     //     console.log(titles, "This is the table titles")
     // }
 
-    
 
 
 
     return (
-        <div id="left-table" className="Table">
+        <div className="Table">
             {/* top bar  */}
             <div className="TopBar">
                 {/* / resource Catalog */}
@@ -47,23 +47,11 @@ export default function LeftTable (props)  {
                 {/* dropdown part */}
                 <div className="dropdown">
                     {/* need to fix the function to control click */}
-                    <button onClick={(e) => props.optionHandler(e)} className="Button">
-                        <FontAwesomeIcon color="white" icon="align-left"/>
+                    <button onClick={props.rightTrashHandler()} className="Button">
+                        <FontAwesomeIcon color="white" icon="trash-alt" />
                     </button>
                     <span> </span>
-                    {/* fix the function, pass data to right table */}
-                    <button onClick={props.addToRightHandler()} className="Button" >
-                        <FontAwesomeIcon color="white" icon="share" />
-                    </button>
-                    {/* need to fix the show up function // 
-                    // the dropdown option*/}
-                    {props.showDropdown && 
-                    <div id="dropdown" className="dropdownContent"> 
-                    {/* need to fix the click handler */}
-                        <div onClick={props.selectAllHandler()}> <a href="#"><FontAwesomeIcon color="#e16e37" icon="check-square" />Select all</a>  </div>
-                        <div onClick={props.cancelAllHandler()}><a href="#"> <FontAwesomeIcon color="#e16e37" icon="square" />Clear selection</a></div>
-                    </div> 
-                    }
+                    
                 </div>
                 {/* <div>
                     need to fix the function to control click
@@ -81,9 +69,8 @@ export default function LeftTable (props)  {
                             <TableRow>
                                 <TableCell padding="checkbox">
                                     {/* need to fix the function of all selection */}
-                                    {/* <Checkbox></Checkbox> */}
                                 </TableCell>
-                                {titles.map((title, index) => 
+                                {titles.map((title, index) =>
                                     (<TableCell key={index}> {title}</TableCell>)
                                 )}
 
@@ -92,18 +79,19 @@ export default function LeftTable (props)  {
                         {/* {console.log(data, "THIS iS the data from PROJECT@")} */}
 
                         <TableBody>
-                            
+
                             {(rowsPerPage > 0
                                 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 : data)
                                 .map((row) => (
-                                    <TableRow key={"row"+row.id}>
-                                        <TableCell id="left-table-data" padding="checkbox">
+                                    <TableRow key={"row" + row.id}>
+                                        <TableCell padding="checkbox">
                                             {/* need to fix the handler */}
-                                            <input className="checkbox" type="checkbox" 
-                                            onChange={props.checkboxHandler(row.id)} 
-                                            key={"checkbox" + row.id} 
-                                            id={"left-table-"+row.id}/>                                            
+                                            <input type="checkbox"
+                                            className="checkbox" 
+                                                onChange={props.checkboxRightHandler(row.id)} 
+                                            key={"checkbox2" + row.id} 
+                                            id={"table-right-"+row.id} />
                                         </TableCell>
                                         <TableCell component="th" scope="row">
                                             {row.userId}
@@ -112,13 +100,11 @@ export default function LeftTable (props)  {
                                             {row.title}
                                         </TableCell>
                                     </TableRow>))
-                            
-                                
-                            }
 
-                            
+
+                            }
                         </TableBody>
-                    
+
                     </Table>
                 </TableContainer>
 
@@ -127,10 +113,12 @@ export default function LeftTable (props)  {
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
                     count={data.length}
-                    rowsPerPage={props.rowsPerPage}
-                    page={props.page}
-                    onChangePage={props.pageChangeHandler()}
-                    onChangeRowsPerPage={props.rowsPerPageChangeHandler()} 
+                    rowsPerPage={props.rowsPerPageRight}
+                    page={props.pageRight}
+                    // onChangePage={props.pageChangeHandler()}
+                    // onChangeRowsPerPage={props.rowsPerPageChangeHandler()}
+                    onChangePage={props.pageChangeRightHandler()}
+                    onChangeRowsPerPage={props.rowsPerPageChangeRightHandler()}
                 />
             </div>
 
